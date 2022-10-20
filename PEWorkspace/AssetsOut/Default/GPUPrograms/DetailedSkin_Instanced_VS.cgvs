@@ -21,7 +21,7 @@ void processBone(unsigned int instanceId, int jointId, float weight, float4 posi
 
 DETAILED_MESH_PS_IN DetailedSkin_Shadowed_Instanced_VS(DETAILED_SKIN_INSTANCED_VS_IN vIn)
 {
-    DETAILED_MESH_SHADOWED_PS_IN vOut;
+    DETAILED_MESH_SHADOWED_PS_IN vOut = (DETAILED_MESH_SHADOWED_PS_IN) 0;;
 
 	float4 position = make_float4(vIn.iPosL, 1.0);
 	float4 normal = make_float4(vIn.iNormal, 0.0);

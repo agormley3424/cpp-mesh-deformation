@@ -67,8 +67,7 @@ int socket_waitfd(p_socket ps, int sw, p_timeout tm) {
         tv.tv_sec = (int) t;
         tv.tv_usec = (int) ((t-tv.tv_sec)*1.0e6);
         tp = &tv;
-    }
-    ret = select(0, rp, wp, ep, tp);
+    }    ret = select(0, rp, wp, ep, tp);
     if (ret == -1) return WSAGetLastError();
     if (ret == 0) return IO_TIMEOUT;
     if (sw == WAITFD_C && FD_ISSET(*ps, &efds)) return IO_CLOSED;
