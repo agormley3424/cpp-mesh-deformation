@@ -52,6 +52,22 @@ void MeshCPU::ReadMesh(const char *filename, const char *package, const char *ta
 	{
 		m_hTexCoordBufferCPU = PositionBufferCPUManager::Instance()->ReadTexCoordBuffer(tcfilename, package, tag);
 		m_hWindBufferCPU = PositionBufferCPUManager::Instance()->ReadTexCoordBuffer(tcfilename, package, tag);
+
+		TexCoordBufferCPU* p_hWindBufferCPU = m_hWindBufferCPU.getObject<TexCoordBufferCPU>();
+
+		Array<PrimitiveTypes::Float32>* m_values = &(p_hWindBufferCPU->m_values);
+
+		
+		Array<PrimitiveTypes::Float32>* pos_values = &(m_hPositionBufferCPU.getObject<PositionBufferCPU>()->m_values);
+
+		m_values->reset((m_values->m_capacity));
+
+		for (int i = 2; i < pos_values->m_size; i += 3) {
+			m_values->add(pos_values->getByIndexUnchecked(i));
+			m_values->add(0);
+		}
+
+
 		//int size = PositionBufferCPUManager::Instance()->getSize(tcfilename, package, tag);
 		//Handle* heck = m_hWindBufferCPU.getObject();
 
