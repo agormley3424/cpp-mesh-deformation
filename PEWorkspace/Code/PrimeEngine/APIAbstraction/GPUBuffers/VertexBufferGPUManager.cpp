@@ -45,9 +45,9 @@ Handle VertexBufferGPUManager::createGPUBuffer(Handle hvb, Handle htcb, Handle h
 	return res;
 }
 
-Handle VertexBufferGPUManager::createGPUBufferFromVBufTCBufNBufTBuf(Handle hvb, Handle htcb, Handle hnb, Handle hTBuf, bool useBufferRegistry)
+Handle VertexBufferGPUManager::createGPUBufferFromVBufTCBufNBufTBuf(Handle hvb, Handle htcb, Handle hwb, Handle hnb, Handle hTBuf, bool useBufferRegistry)
 {
-	Handle handles[] = {hvb, htcb, Handle(), hnb, hTBuf};
+	Handle handles[] = {hvb, htcb, hwb, Handle(), hnb, hTBuf, hwb};
 
 	Handle res;
 	
@@ -65,8 +65,9 @@ Handle VertexBufferGPUManager::createGPUBufferFromVBufTCBufNBufTBuf(Handle hvb, 
 	VertexBufferGPU *pvbgpu = new(res) VertexBufferGPU(*m_pContext, m_arena);
 
 	pvbgpu->createGPUBufferFromSource_DetailedMesh(
-		*hvb.getObject<PositionBufferCPU>(), 
+		*hvb.getObject<PositionBufferCPU>(),
 		*htcb.getObject<TexCoordBufferCPU>(),
+		*hwb.getObject<TexCoordBufferCPU>(),
 		*hnb.getObject<NormalBufferCPU>(),
 		*hTBuf.getObject<TangentBufferCPU>());
 
@@ -76,9 +77,9 @@ Handle VertexBufferGPUManager::createGPUBufferFromVBufTCBufNBufTBuf(Handle hvb, 
 	return res;
 }
 
-Handle VertexBufferGPUManager::createGPUBufferFromVBufTCBufSWBufNBufTBuf(Handle hvb, Handle htcb, Handle hSWBuf, Handle hnb, Handle hTBuf, bool useBufferRegistry)
+Handle VertexBufferGPUManager::createGPUBufferFromVBufTCBufSWBufNBufTBuf(Handle hvb, Handle htcb, Handle hwb, Handle hSWBuf, Handle hnb, Handle hTBuf, bool useBufferRegistry)
 {
-	Handle handles[] = {hvb, htcb, hSWBuf, hnb, hTBuf};
+	Handle handles[] = {hvb, htcb, hSWBuf, hnb, hTBuf, hwb};
 
 	Handle res;
 	
@@ -98,6 +99,7 @@ Handle VertexBufferGPUManager::createGPUBufferFromVBufTCBufSWBufNBufTBuf(Handle 
 	pvbgpu->createGPUBufferFromSource_DetailedSkin(
 		*hvb.getObject<PositionBufferCPU>(), 
 		*htcb.getObject<TexCoordBufferCPU>(),
+		*hwb.getObject<TexCoordBufferCPU>(),
 		*hSWBuf.getObject<SkinWeightsCPU>(),
 		*hnb.getObject<NormalBufferCPU>(),
 		*hTBuf.getObject<TangentBufferCPU>());

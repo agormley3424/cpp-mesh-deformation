@@ -71,12 +71,12 @@ public:
 	void createGPUBufferFromSource_ColoredMinimalMesh(PositionBufferCPU &vb, ColorBufferCPU &cb, WRITE_MODES writeMode = CONSTANT);
 	void createGPUBufferFromSource_ReducedMesh(PositionBufferCPU &vb, TexCoordBufferCPU &tcb, WRITE_MODES writeMode = CONSTANT);
 	void createGPUBufferFromSource_StdMesh(PositionBufferCPU &vb, TexCoordBufferCPU &tcb, NormalBufferCPU &nb);
-	void createGPUBufferFromSource_DetailedMesh(PositionBufferCPU &vb, TexCoordBufferCPU &tcb, NormalBufferCPU &nb, TangentBufferCPU &tb);
+	void createGPUBufferFromSource_DetailedMesh(PositionBufferCPU& vb, TexCoordBufferCPU& tcb, TexCoordBufferCPU& wb, NormalBufferCPU& nb, TangentBufferCPU& tb);
 	
 	void createGPUBufferFromSource_MinimalSkin(PositionBufferCPU &vb, SkinWeightsCPU &weights);
 	void createGPUBufferFromSource_ReducedSkin(PositionBufferCPU &vb, TexCoordBufferCPU &tcb, SkinWeightsCPU &weights);
 	void createGPUBufferFromSource_StdSkin(PositionBufferCPU &vb, TexCoordBufferCPU &tcb, SkinWeightsCPU &weights, NormalBufferCPU &nb);
-	void createGPUBufferFromSource_DetailedSkin(PositionBufferCPU &vb, TexCoordBufferCPU &tcb, SkinWeightsCPU &weights, NormalBufferCPU &nb, TangentBufferCPU &tb);
+	void createGPUBufferFromSource_DetailedSkin(PositionBufferCPU& vb, TexCoordBufferCPU& tcb, TexCoordBufferCPU& wb, SkinWeightsCPU& weights, NormalBufferCPU& nb, TangentBufferCPU& tb);
 
 	void createGPUBuffer(PositionBufferCPU &vb, NormalBufferCPU &nb);
 

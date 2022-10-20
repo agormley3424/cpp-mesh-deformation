@@ -265,6 +265,10 @@ EPEVertexFormat Mesh::updateGeoFromMeshCPU_needsRC(MeshCPU &mcpu, int &threadOwn
 	// TexCoord Buffer ---------------------------------------------------------
 	m_hTexCoordBufferCPU = mcpu.m_hTexCoordBufferCPU;
 
+	// TexCoord Buffer
+
+	m_hWindBufferCPU = mcpu.m_hWindBufferCPU;
+
 	// Vertex Buffer -------------------------------------------------------
 	Handle m_hVertexBufferGPU;
 	m_hPositionBufferCPU = mcpu.m_hPositionBufferCPU;
@@ -367,6 +371,7 @@ EPEVertexFormat Mesh::updateGeoFromMeshCPU_needsRC(MeshCPU &mcpu, int &threadOwn
 			m_hVertexBufferGPU = VertexBufferGPUManager::Instance()->createGPUBufferFromVBufTCBufNBufTBuf(
 				mcpu.m_hPositionBufferCPU, 
 				mcpu.m_hTexCoordBufferCPU, 
+				mcpu.m_hWindBufferCPU,
 				mcpu.m_hNormalBufferCPU,
 				mcpu.m_hTangentBufferCPU,
 				!mcpu.m_manualBufferManagement);
@@ -388,6 +393,7 @@ EPEVertexFormat Mesh::updateGeoFromMeshCPU_needsRC(MeshCPU &mcpu, int &threadOwn
 			m_hVertexBufferGPU = VertexBufferGPUManager::Instance()->createGPUBufferFromVBufTCBufSWBufNBufTBuf(
 				m_hPositionBufferCPU, 
 				m_hTexCoordBufferCPU,
+				m_hWindBufferCPU,
 				m_hSkinWeightsCPU,
 				m_hNormalBufferCPU,
 				mcpu.m_hTangentBufferCPU,

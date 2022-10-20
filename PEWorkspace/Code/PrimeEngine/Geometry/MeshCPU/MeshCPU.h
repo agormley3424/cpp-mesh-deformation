@@ -55,6 +55,9 @@ struct MeshCPU : PE::PEAllocatableAndDefragmentable
 	Handle m_hTexCoordBufferCPU;
 	Array<Handle> m_hAdditionalTexCoordBuffersCPU;
 	
+	Handle m_hWindBufferCPU;
+	Array<Handle> m_hAdditionalWindBuffersCPU;
+	
 	Handle m_hNormalBufferCPU;
 	Array<Handle> m_hAdditionalNormalBuffersCPU;
 	

@@ -51,6 +51,10 @@ void MeshCPU::ReadMesh(const char *filename, const char *package, const char *ta
 	if (StringOps::strcmp(tcfilename, "none") != 0)
 	{
 		m_hTexCoordBufferCPU = PositionBufferCPUManager::Instance()->ReadTexCoordBuffer(tcfilename, package, tag);
+		m_hWindBufferCPU = PositionBufferCPUManager::Instance()->ReadTexCoordBuffer(tcfilename, package, tag);
+		//int size = PositionBufferCPUManager::Instance()->getSize(tcfilename, package, tag);
+		//Handle* heck = m_hWindBufferCPU.getObject();
+
 		
 	}
 	else

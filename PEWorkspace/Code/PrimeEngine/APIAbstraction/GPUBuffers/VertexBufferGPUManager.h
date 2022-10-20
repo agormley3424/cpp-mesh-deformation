@@ -51,8 +51,8 @@ struct VertexBufferGPUManager : public PE::PEAllocatableAndDefragmentable
 	// Reads the specified buffer from file
 	Handle createGPUBuffer(Handle hvb, Handle htcb, Handle hnb, bool useBufferRegistry);
 
-	Handle createGPUBufferFromVBufTCBufNBufTBuf(Handle hvb, Handle htcb, Handle hnb, Handle hTBuf, bool useBufferRegistry);
-	Handle createGPUBufferFromVBufTCBufSWBufNBufTBuf(Handle hvb, Handle htcb, Handle hSWBuf, Handle hnb, Handle hTBuf, bool useBufferRegistry);
+	Handle createGPUBufferFromVBufTCBufNBufTBuf(Handle hvb, Handle htcb, Handle hwb, Handle hnb, Handle hTBuf, bool useBufferRegistry);
+	Handle createGPUBufferFromVBufTCBufSWBufNBufTBuf(Handle hvb, Handle htcb, Handle hwb, Handle hSWBuf, Handle hnb, Handle hTBuf, bool useBufferRegistry);
 	Handle createGPUBufferFromVBufTCBufSWBufNBuf(Handle hvb, Handle htcb, Handle hSWBuf, Handle hnb, bool useBufferRegistry);
 
 	Handle createFromSource_ColoredMinimalMesh(Handle hpb, Handle hcb, bool useBufferRegistry);
