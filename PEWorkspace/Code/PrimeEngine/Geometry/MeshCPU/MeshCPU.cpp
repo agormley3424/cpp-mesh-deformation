@@ -52,11 +52,23 @@ void MeshCPU::ReadMesh(const char *filename, const char *package, const char *ta
 	{
 		m_hTexCoordBufferCPU = PositionBufferCPUManager::Instance()->ReadTexCoordBuffer(tcfilename, package, tag);
 
+
+
 		//TexCoordBufferCPU* p_hWindBufferCPU = m_hWindBufferCPU.getObject<TexCoordBufferCPU>();
 
-		TexCoordBufferCPU m_hWindBufferCPU = TexCoordBufferCPU(*m_pContext, m_arena);
+		//TexCoordBufferCPU* obj_windBufferCPU = m_hWindBufferCPU.getObject<TexCoordBufferCPU>();
 
-		Array<PrimitiveTypes::Float32>* m_values = &(m_hWindBufferCPU.m_values);
+		//TexCoordBufferCPU obj_windBufferCPU = *(m_hTexCoordBufferCPU.getObject<TexCoordBufferCPU>());
+
+		//m_hWindBufferCPU = 
+
+
+		m_hWindBufferCPU = Handle("TEXCOORD_BUFFER_CPU", sizeof(TexCoordBufferCPU));
+		TexCoordBufferCPU* obj_windBufferCPU = new(m_hWindBufferCPU) TexCoordBufferCPU(*m_pContext, m_arena);
+
+
+
+		Array<PrimitiveTypes::Float32>* m_values = &(obj_windBufferCPU->m_values);
 
 		TexCoordBufferCPU* ht = m_hTexCoordBufferCPU.getObject<TexCoordBufferCPU>();
 
@@ -69,12 +81,18 @@ void MeshCPU::ReadMesh(const char *filename, const char *package, const char *ta
 
 		//PrimitiveTypes::Float32* testVal =  m_values->m_dataHandle.getObject<PrimitiveTypes::Float32>();
 		PrimitiveTypes::Float32* testVal = m_values->getFirstPtr();
+
+		int i = 5;
+
+		PositionBufferCPU* posBuf = m_hPositionBufferCPU.getObject<PositionBufferCPU>();
+
+
 		
 
 		
-		Array<PrimitiveTypes::Float32>* pos_values = &(m_hPositionBufferCPU.getObject<PositionBufferCPU>()->m_values);
+		Array<PrimitiveTypes::Float32>* pos_values = &(posBuf->m_values);
 
-		PrimitiveTypes::Float32* posTest = pos_values->m_dataHandle.getObject<PrimitiveTypes::Float32>();
+		//PrimitiveTypes::Float32* posTest = pos_values->m_dataHandle.getObject<PrimitiveTypes::Float32>();
 
 		//m_values->clear();
 
@@ -86,7 +104,7 @@ void MeshCPU::ReadMesh(const char *filename, const char *package, const char *ta
 			int x = 5;
 		}
 
-		int y = 6;
+		//int y = 6;
 
 		//int size = PositionBufferCPUManager::Instance()->getSize(tcfilename, package, tag);
 		//Handle* heck = m_hWindBufferCPU.getObject();

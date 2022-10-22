@@ -265,8 +265,7 @@ EPEVertexFormat Mesh::updateGeoFromMeshCPU_needsRC(MeshCPU &mcpu, int &threadOwn
 	// TexCoord Buffer ---------------------------------------------------------
 	m_hTexCoordBufferCPU = mcpu.m_hTexCoordBufferCPU;
 
-	// TexCoord Buffer
-
+	// Wind Buffer
 	m_hWindBufferCPU = mcpu.m_hWindBufferCPU;
 
 	// Vertex Buffer -------------------------------------------------------
