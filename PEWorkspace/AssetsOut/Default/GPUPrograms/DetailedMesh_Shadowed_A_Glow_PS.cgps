@@ -103,6 +103,8 @@ float4 DetailedMesh_Shadowed_A_Glow_PS(DETAILED_MESH_SHADOWED_PS_IN pIn)
 	
 	//combinedColor = make_float4(max(perPixelNormal.r + combinedColor.r / 100.0, 0.0), max(perPixelNormal.g, 0.0), max(perPixelNormal.b, 0.0), 0.02);
 
+    //combinedColor = combinedColor + float4(0, pIn.iWind.x * 10, 0, 0);
+	
 	return combinedColor;
 }
 

@@ -51,22 +51,42 @@ void MeshCPU::ReadMesh(const char *filename, const char *package, const char *ta
 	if (StringOps::strcmp(tcfilename, "none") != 0)
 	{
 		m_hTexCoordBufferCPU = PositionBufferCPUManager::Instance()->ReadTexCoordBuffer(tcfilename, package, tag);
-		m_hWindBufferCPU = PositionBufferCPUManager::Instance()->ReadTexCoordBuffer(tcfilename, package, tag);
 
-		TexCoordBufferCPU* p_hWindBufferCPU = m_hWindBufferCPU.getObject<TexCoordBufferCPU>();
+		//TexCoordBufferCPU* p_hWindBufferCPU = m_hWindBufferCPU.getObject<TexCoordBufferCPU>();
 
-		Array<PrimitiveTypes::Float32>* m_values = &(p_hWindBufferCPU->m_values);
+		TexCoordBufferCPU m_hWindBufferCPU = TexCoordBufferCPU(*m_pContext, m_arena);
+
+		Array<PrimitiveTypes::Float32>* m_values = &(m_hWindBufferCPU.m_values);
+
+		TexCoordBufferCPU* ht = m_hTexCoordBufferCPU.getObject<TexCoordBufferCPU>();
+
+		int tVals = ht->m_values.m_capacity;
+
+		//Array<PrimitiveTypes::Float32>* t_values = 
+
+		m_values->reset(tVals);
+		//m_values->clear();
+
+		//PrimitiveTypes::Float32* testVal =  m_values->m_dataHandle.getObject<PrimitiveTypes::Float32>();
+		PrimitiveTypes::Float32* testVal = m_values->getFirstPtr();
+		
 
 		
 		Array<PrimitiveTypes::Float32>* pos_values = &(m_hPositionBufferCPU.getObject<PositionBufferCPU>()->m_values);
 
-		m_values->reset((m_values->m_capacity));
+		PrimitiveTypes::Float32* posTest = pos_values->m_dataHandle.getObject<PrimitiveTypes::Float32>();
 
-		for (int i = 2; i < pos_values->m_size; i += 3) {
+		//m_values->clear();
+
+		for (int i = 2, j = 0; i < pos_values->m_size; i += 3, j += 2) {
 			m_values->add(pos_values->getByIndexUnchecked(i));
+			//m_values->add(1);
 			m_values->add(0);
+
+			int x = 5;
 		}
 
+		int y = 6;
 
 		//int size = PositionBufferCPUManager::Instance()->getSize(tcfilename, package, tag);
 		//Handle* heck = m_hWindBufferCPU.getObject();
