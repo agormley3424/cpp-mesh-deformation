@@ -583,7 +583,7 @@ void VertexBufferGPU::createGPUBufferFromSource_DetailedSkin(PositionBufferCPU &
 		ny = nb.m_values[curInex + 1]; nz = nb.m_values[curInex + 2];
 		tx = tb.m_values[curInex]; ty = tb.m_values[curInex + 1]; tz = tb.m_values[curInex + 2];
 
-		w1 = tcb.m_values[itcvalWind++]; w2 = tcb.m_values[itcvalWind++];
+		w1 = wb.m_values[itcvalWind++]; w2 = wb.m_values[itcvalWind++];
 
 		PrimitiveTypes::Float32 vweights[8] = {-1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f};
 		PrimitiveTypes::Float32 jointIndices[8] = {-1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f, -1.0f};

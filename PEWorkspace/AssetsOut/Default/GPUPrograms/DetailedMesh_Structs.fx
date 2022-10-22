@@ -14,7 +14,7 @@ struct DETAILED_MESH_VS_IN
     float3 iNormal    API_SEMANTIC(VSIN_NORMAL);
     float3 iTangent   API_SEMANTIC(VSIN_TANGENT);
     
-    //float2 iWind      API_SEMANTIC(TEXCOORD3);
+    float2 iWind      API_SEMANTIC(COLOR);
 };
 
 #if APIABSTRACTION_D3D11
@@ -111,7 +111,7 @@ struct DETAILED_MESH_SHADOWED_PS_IN
     float4 iProjTexCoord API_SEMANTIC(PSIN_PROJECTION);
     float3 iTangentW API_SEMANTIC(PSIN_TANGENT);
     
-    //float2 iWind     API_SEMANTIC(TEXCOORD2);
+    float2 iWind     API_SEMANTIC(COLOR);
 };
 
 #if APIABSTRACTION_IOS

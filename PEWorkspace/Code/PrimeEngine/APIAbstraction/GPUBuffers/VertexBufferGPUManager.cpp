@@ -294,6 +294,8 @@ void VertexBufferGPUManager::setupVertexBufferInfos()
 		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(3 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "texcoord", 0);
 		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(5 * 4, PEScalarType_Float, 3, PESemanticType_Normal, "normal", 0);
 		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(8 * 4, PEScalarType_Float, 3, PESemanticType_Tangent, "tangent", 0);
+
+		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(3 * 4, PEScalarType_Float, 2, PESemanticType_Color, "windcoord", 0);
 		
 		info.m_bufferInfos.add(buf0);
 		info.setAPIValues();
@@ -301,6 +303,29 @@ void VertexBufferGPUManager::setupVertexBufferInfos()
 		m_vertexBufferInfos[info.m_vertexFormatLayout] = info;
 		m_layoutToFormatMap[info.m_vertexFormatLayout] = PEVertexFormat_DetailedMesh;
 	}
+
+
+	//// DetailedMesh has only one buffer with all elements(attributes) within one stride plus wind!
+	//{
+	//	PEVertexBufferInfo info(*m_pContext, m_arena, PEVertexFormatLayout_DetailedMesh_B0__P0f3_TC0f2_N0f3_T0f3_TC0f2);
+	//	info.m_bufferInfos.reset(1);
+	//	PEVertexAttributeBufferInfo buf0;
+	//	// position
+	//	buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(0, PEScalarType_Float, 3, PESemanticType_Position, "position", 0);
+	//	buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(3 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "texcoord", 0);
+	//	buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(5 * 4, PEScalarType_Float, 3, PESemanticType_Normal, "normal", 0);
+	//	buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(8 * 4, PEScalarType_Float, 3, PESemanticType_Tangent, "tangent", 0);
+
+	//	buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(3 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "texcoord", 0);
+
+	//	info.m_bufferInfos.add(buf0);
+	//	info.setAPIValues();
+
+	//	m_vertexBufferInfos[info.m_vertexFormatLayout] = info;
+	//	m_layoutToFormatMap[info.m_vertexFormatLayout] = PEVertexFormat_DetailedMesh;
+	//}
+
+
 	// DetailedMesh with all vertex elements(attributes) in separate buffers
 	{
 		PEVertexBufferInfo info(*m_pContext, m_arena, PEVertexFormatLayout_DetailedMesh_B0__P0f3_B1__TC0f2_B2__N0f3_B3__T0f3);
@@ -473,6 +498,8 @@ void VertexBufferGPUManager::setupVertexBufferInfos()
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(19 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "texcoord", 0);
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(21 * 4, PEScalarType_Float, 3, PESemanticType_Normal, "normal", 0);
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(24 * 4, PEScalarType_Float, 3, PESemanticType_Tangent, "tangent", 0);
+
+			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(19 * 4, PEScalarType_Float, 2, PESemanticType_Color, "windcoord", 0);
 		}
 
 		info.m_bufferInfos.add(buf0);
