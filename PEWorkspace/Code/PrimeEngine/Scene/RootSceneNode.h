@@ -32,6 +32,8 @@ struct RootSceneNode : public SceneNode
 	RootSceneNode(PE::GameContext &context, PE::MemoryArena arena, Handle hMyself) : SceneNode(context, arena, hMyself)
 	{
 		m_components.reset(512);
+
+		m_wind = Array<Handle>(context, arena, 3);
 	}
 
 	virtual ~RootSceneNode(){}
@@ -53,6 +55,8 @@ struct RootSceneNode : public SceneNode
 	static void SetTitleAsCurrent(){ s_hCurInstance = s_hTitleInstance; }
 	static void SetGameAsCurrent() { s_hCurInstance = s_hInstance; }
 	static bool TitleIsCurrent() { return s_hCurInstance == s_hTitleInstance;}
+
+	//Array<Handle> m_wind;
 
 	static void SetInstance(Handle h){s_hInstance = h;}
 	private:

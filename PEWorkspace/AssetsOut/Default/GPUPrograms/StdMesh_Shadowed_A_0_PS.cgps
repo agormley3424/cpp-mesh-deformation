@@ -52,6 +52,8 @@ float4 StdMesh_Shadowed_A_0_PS(STD_MESH_SHADOWED_PS_IN pIn)
      }*/
 	combinedColor.a = 0.0;
 	
+    //combinedColor = make_float4(0, pIn.iWind.x, 0, 0);
+	
 	return combinedColor;
 }
 

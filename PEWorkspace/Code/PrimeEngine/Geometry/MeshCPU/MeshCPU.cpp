@@ -96,7 +96,7 @@ void MeshCPU::ReadMesh(const char *filename, const char *package, const char *ta
 
 		//m_values->clear();
 
-		for (int i = 2, j = 0; i < pos_values->m_size; i += 3, j += 2) {
+		for (int i = 1, j = 0; i < pos_values->m_size; i += 3, j += 2) {
 			m_values->add(pos_values->getByIndexUnchecked(i));
 			//m_values->add(1);
 			m_values->add(0);

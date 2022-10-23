@@ -3,6 +3,7 @@
 #include "RootSceneNode.h"
 
 #include "Light.h"
+#include "Wind.h"
 #include "DrawList.h"
 
 #include "PrimeEngine/APIAbstraction/Effect/EffectManager.h"
@@ -29,6 +30,18 @@ void RootSceneNode::Construct(PE::GameContext &context, PE::MemoryArena arena)
 	pTitleRootSceneNode->addDefaultComponents();
 	
 	SetTitleAsCurrent();
+
+	SceneNode* pRoot = RootSceneNode::Instance();
+
+	Handle hWind("WIND", sizeof(Wind));
+
+	Wind* pWind = new(hWind) Wind(context, arena, hWind, Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0));
+	//Wind* pWind = new(hWind) Wind(context, arena);
+	//pRoot->m_wind = 
+
+	pRoot->m_wind.add(pWind);
+	pRoot->m_wind.add(pWind);
+	pRoot->m_wind.add(pWind);
 }
 
 void RootSceneNode::addDefaultComponents()
@@ -64,6 +77,13 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 		SetPerFrameConstantsShaderAction *p = new(h) SetPerFrameConstantsShaderAction(*m_pContext, m_arena);
 		p->m_data.gGameTimes[0] = pDrawEvent ? pDrawEvent->m_gameTime : 0;
 		p->m_data.gGameTimes[1] = pDrawEvent ? pDrawEvent->m_frameTime : 0;
+
+		// fill in the data object that will be submitted to pipeline
+		Handle& h2 = pDrawList->nextGlobalWindValue();
+		h2 = Handle("RAW_DATA", sizeof(WindPerObjectGroupConstantsShaderAction));
+		WindPerObjectGroupConstantsShaderAction* p2 = new(h2) WindPerObjectGroupConstantsShaderAction(*m_pContext, m_arena);
+		p2->m_data.gGameTimes[0] = pDrawEvent ? pDrawEvent->m_gameTime : 0;
+		p2->m_data.gGameTimes[1] = pDrawEvent ? pDrawEvent->m_frameTime : 0;
 	}
 
 	// set some effect constants here that will be constant per object group
@@ -71,10 +91,10 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 
 	if (setGlobalValues)
 	{
-		Handle &hsvPerObjectGroup = pDrawList->nextGlobalShaderValue();
+		Handle& hsvPerObjectGroup = pDrawList->nextGlobalShaderValue();
 		hsvPerObjectGroup = Handle("RAW_DATA", sizeof(SetPerObjectGroupConstantsShaderAction));
-		SetPerObjectGroupConstantsShaderAction *psvPerObjectGroup = new(hsvPerObjectGroup) SetPerObjectGroupConstantsShaderAction(*m_pContext, m_arena);
-	
+		SetPerObjectGroupConstantsShaderAction* psvPerObjectGroup = new(hsvPerObjectGroup) SetPerObjectGroupConstantsShaderAction(*m_pContext, m_arena);
+
 		psvPerObjectGroup->m_data.gViewProj = pDrawEvent ? pDrawEvent->m_projectionViewTransform : pZOnlyDrawEvent->m_projectionViewTransform;
 
 		psvPerObjectGroup->m_data.gViewInv = pDrawEvent ? pDrawEvent->m_viewInvTransform : Matrix4x4();
@@ -90,13 +110,13 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 		PrimitiveTypes::UInt32 iDestLight = 0;
 		if (pRoot->m_lights.m_size)
 		{
-			for(PrimitiveTypes::UInt32 i=0; i<(pRoot->m_lights.m_size); i++){
-				Light *pLight = pRoot->m_lights[i].getObject<Light>();
-				if(pLight->castsShadow()){
+			for (PrimitiveTypes::UInt32 i = 0; i < (pRoot->m_lights.m_size); i++) {
+				Light* pLight = pRoot->m_lights[i].getObject<Light>();
+				if (pLight->castsShadow()) {
 					Matrix4x4 worldToView = pLight->m_worldToViewTransform;
 					Matrix4x4 lightProjectionViewWorldMatrix = (pLight->m_viewToProjectedTransform * worldToView);
 					psvPerObjectGroup->m_data.gLightWVP = lightProjectionViewWorldMatrix;
-					
+
 					psvPerObjectGroup->m_data.gLights[iDestLight] = pLight->m_cbuffer;
 					iDestLight++;
 
@@ -104,13 +124,27 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 				}
 			}
 		}
-		for (PrimitiveTypes::UInt32 iLight = 0;iLight < pRoot->m_lights.m_size; iLight++)
+		for (PrimitiveTypes::UInt32 iLight = 0; iLight < pRoot->m_lights.m_size; iLight++)
 		{
-			Light *pLight = pRoot->m_lights[iLight].getObject<Light>();
-			if(pLight->castsShadow())
+			Light* pLight = pRoot->m_lights[iLight].getObject<Light>();
+			if (pLight->castsShadow())
 				continue;
 			psvPerObjectGroup->m_data.gLights[iDestLight] = pLight->m_cbuffer;
 			iDestLight++;
+		}
+
+
+		PrimitiveTypes::UInt32 iDestWind = 0;
+		if (setGlobalValues)
+		{
+			Handle& hsvWindObjectGroup = pDrawList->nextGlobalWindValue();
+			hsvWindObjectGroup = Handle("RAW_DATA", sizeof(WindPerObjectGroupConstantsShaderAction));
+			WindPerObjectGroupConstantsShaderAction* psvPerObjectGroup = new(hsvWindObjectGroup) WindPerObjectGroupConstantsShaderAction(*m_pContext, m_arena);
+
+			
+			for (int i = 0; i < 3; ++i) {
+				psvPerObjectGroup->m_data.gWind[i].windSrc = *(pRoot->m_wind.getByIndexUnchecked(i).getObject<Matrix4x4>());
+			}
 		}
 	}
 }

@@ -1113,6 +1113,12 @@
     <ClInclude Include="PrimeEngine\Utils\StringOps.h">
       <Filter>PrimeEngine\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Wind.h">
+      <Filter>AssetsOut\CharacterControl</Filter>
+    </ClInclude>
+    <ClInclude Include="WindPerObjectGroupConstantsShaderAction.h">
+      <Filter>PrimeEngine\Render\ShaderActions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\AssetsOut\Default\GPUPrograms\nums_spe.c">
@@ -1543,6 +1549,12 @@
     </ClCompile>
     <ClCompile Include="PrimeEngine\Utils\PEString.cpp">
       <Filter>PrimeEngine\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Wind.cpp">
+      <Filter>AssetsOut\CharacterControl</Filter>
+    </ClCompile>
+    <ClCompile Include="WindPerObjectGroupConstantsShaderAction.cpp">
+      <Filter>PrimeEngine\Render\ShaderActions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

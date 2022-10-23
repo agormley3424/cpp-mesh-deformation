@@ -42,8 +42,8 @@ struct SetPerObjectGroupConstantsShaderAction : ShaderAction
 	// unlike DX9 where we just set registers
 #	endif
 	PE::MemoryArena m_arena; PE::GameContext *m_pContext;
-	
-	// struct to store Light properties
+
+	// struct to store light properties
 	struct hlsl_Light
 	{
 		Vector3	pos;

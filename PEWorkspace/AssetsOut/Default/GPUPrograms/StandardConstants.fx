@@ -88,5 +88,17 @@ BEGIN_BUFFER  // total registers: 4 absoulte: [159-162]
 	API_UNIFORM_CONSTANT float4 gxyzVEmissive_wVShininess            API_UNIFORM_CONSTANT_REGISTER_REG(3, 162);
 END_BUFFER
 
+////////////////////////////////////////////////////////////////////////////////
+// Wind (Needs 4 registers for each source, 12 total)
+////////////////////////////////////////////////////////////////////////////////
+#undef API_BUFFER_INDEX
+#define API_BUFFER_INDEX 4
+BEGIN_BUFFER
+	API_UNIFORM_CONSTANT matrix windSource1 API_UNIFORM_CONSTANT_REGISTER_REG(162, 163);
+	API_UNIFORM_CONSTANT matrix windSource2 API_UNIFORM_CONSTANT_REGISTER_REG(166, 167);
+	API_UNIFORM_CONSTANT matrix windSource3 API_UNIFORM_CONSTANT_REGISTER_REG(170, 171);
+END_BUFFER
+
+
 #endif // file guard
 

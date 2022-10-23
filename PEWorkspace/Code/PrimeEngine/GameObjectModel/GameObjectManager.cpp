@@ -57,90 +57,6 @@ void GameObjectManager::do_SET_DEBUG_TARGET_HANDLE(Events::Event *pEvt)
 	Component::s_debuggedEvent = pRealEvt->m_debugEvent;
 }
 
-void GameObjectManager::do_CREATE_LIGHT(Events::Event *pEvt)
-{
-	Event_CREATE_LIGHT *pRealEvt = (Event_CREATE_LIGHT *)(pEvt);
-
-	bool haveObject = false;
-	Handle exisitngObject;
-
-	putGameObjectTableIOnStack();
-
-	if (!pRealEvt->m_peuuid.isZero())
-	{
-		// have a valid peeuid for the object. need to check if have one already
-
-		haveObject = m_pContext->getLuaEnvironment()->checkTableValueByPEUUIDFieldExists(pRealEvt->m_peuuid);
-		if (haveObject)
-		{
-			LuaEnvironment::popHandleFromTableOnStackAndPopTable(m_pContext->getLuaEnvironment()->L, exisitngObject);
-			m_lastAddedObjHandle = exisitngObject;
-		}
-		else
-		{
-			// pop nil
-			m_pContext->getLuaEnvironment()->pop();
-		}
-	}
-
-	if (!haveObject)
-	{
-		Handle hLight("LIGHT", sizeof(Light));
-
-		Light *pLight = new(hLight) Light(
-			*m_pContext,
-			m_arena,
-			hLight,
-			pRealEvt->m_pos, //Position
-			pRealEvt->m_u, 
-			pRealEvt->m_v, 
-			pRealEvt->m_n, //Direction (z-axis)
-			pRealEvt->m_ambient, //Ambient
-			pRealEvt->m_diffuse, //Diffuse
-			pRealEvt->m_spec, //Specular
-			pRealEvt->m_att, //Attenuation (x, y, z)
-			pRealEvt->m_spotPower, // Spot Power
-			pRealEvt->m_range, //Range
-			pRealEvt->m_isShadowCaster, //Whether or not it casts shadows
-			(PrimitiveTypes::Int32)(pRealEvt->m_type) //0 = point, 1 = directional, 2 = spot
-		);
-		pLight->addDefaultComponents();
-
-		RootSceneNode::Instance()->m_lights.add(hLight);
-		RootSceneNode::Instance()->addComponent(hLight);
-
-		m_pContext->getLuaEnvironment()->pushHandleAsFieldAndSet(pRealEvt->m_peuuid, hLight);
-		m_lastAddedObjHandle = hLight;
-	}
-	else
-	{
-		// already have this object
-		
-		// need to reset the orientation
-		// and light source settings
-		Light *pLight = exisitngObject.getObject<Light>();
-		
-		pLight->m_base.setPos(pRealEvt->m_pos);
-		pLight->m_base.setU(pRealEvt->m_u);
-		pLight->m_base.setV(pRealEvt->m_v);
-		pLight->m_base.setN(pRealEvt->m_n);
-		
-
-		pLight->m_cbuffer.pos = pLight->m_base.getPos();
-		pLight->m_cbuffer.dir = pLight->m_base.getN();
-
-		pLight->m_cbuffer.ambient = pRealEvt->m_ambient;
-		pLight->m_cbuffer.diffuse = pRealEvt->m_diffuse;
-		pLight->m_cbuffer.spec = pRealEvt->m_spec;
-		pLight->m_cbuffer.att = pRealEvt->m_att;
-		pLight->m_cbuffer.spotPower = pRealEvt->m_spotPower;
-		pLight->m_cbuffer.range = pRealEvt->m_range;
-		pLight->isTheShadowCaster = pRealEvt->m_isShadowCaster;
-	}
-
-	// pop the game object table
-	m_pContext->getLuaEnvironment()->pop();
-}
 
 void GameObjectManager::do_CREATE_SKELETON(Events::Event *pEvt)
 {
@@ -229,6 +145,92 @@ void GameObjectManager::do_CREATE_SKELETON(Events::Event *pEvt)
 	// pop the game object table
 	m_pContext->getLuaEnvironment()->pop();
 }
+
+void GameObjectManager::do_CREATE_LIGHT(Events::Event *pEvt)
+{
+	Event_CREATE_LIGHT *pRealEvt = (Event_CREATE_LIGHT *)(pEvt);
+
+	bool haveObject = false;
+	Handle exisitngObject;
+
+	putGameObjectTableIOnStack();
+
+	if (!pRealEvt->m_peuuid.isZero())
+	{
+		// have a valid peeuid for the object. need to check if have one already
+
+		haveObject = m_pContext->getLuaEnvironment()->checkTableValueByPEUUIDFieldExists(pRealEvt->m_peuuid);
+		if (haveObject)
+		{
+			LuaEnvironment::popHandleFromTableOnStackAndPopTable(m_pContext->getLuaEnvironment()->L, exisitngObject);
+			m_lastAddedObjHandle = exisitngObject;
+		}
+		else
+		{
+			// pop nil
+			m_pContext->getLuaEnvironment()->pop();
+		}
+	}
+
+	if (!haveObject)
+	{
+		Handle hLight("LIGHT", sizeof(Light));
+
+		Light *pLight = new(hLight) Light(
+			*m_pContext,
+			m_arena,
+			hLight,
+			pRealEvt->m_pos, //Position
+			pRealEvt->m_u, 
+			pRealEvt->m_v, 
+			pRealEvt->m_n, //Direction (z-axis)
+			pRealEvt->m_ambient, //Ambient
+			pRealEvt->m_diffuse, //Diffuse
+			pRealEvt->m_spec, //Specular
+			pRealEvt->m_att, //Attenuation (x, y, z)
+			pRealEvt->m_spotPower, // Spot Power
+			pRealEvt->m_range, //Range
+			pRealEvt->m_isShadowCaster, //Whether or not it casts shadows
+			(PrimitiveTypes::Int32)(pRealEvt->m_type) //0 = point, 1 = directional, 2 = spot
+		);
+		pLight->addDefaultComponents();
+
+		RootSceneNode::Instance()->m_lights.add(hLight);
+		RootSceneNode::Instance()->addComponent(hLight);
+
+		m_pContext->getLuaEnvironment()->pushHandleAsFieldAndSet(pRealEvt->m_peuuid, hLight);
+		m_lastAddedObjHandle = hLight;
+	}
+	else
+	{
+		// already have this object
+		
+		// need to reset the orientation
+		// and light source settings
+		Light *pLight = exisitngObject.getObject<Light>();
+		
+		pLight->m_base.setPos(pRealEvt->m_pos);
+		pLight->m_base.setU(pRealEvt->m_u);
+		pLight->m_base.setV(pRealEvt->m_v);
+		pLight->m_base.setN(pRealEvt->m_n);
+		
+
+		pLight->m_cbuffer.pos = pLight->m_base.getPos();
+		pLight->m_cbuffer.dir = pLight->m_base.getN();
+
+		pLight->m_cbuffer.ambient = pRealEvt->m_ambient;
+		pLight->m_cbuffer.diffuse = pRealEvt->m_diffuse;
+		pLight->m_cbuffer.spec = pRealEvt->m_spec;
+		pLight->m_cbuffer.att = pRealEvt->m_att;
+		pLight->m_cbuffer.spotPower = pRealEvt->m_spotPower;
+		pLight->m_cbuffer.range = pRealEvt->m_range;
+		pLight->isTheShadowCaster = pRealEvt->m_isShadowCaster;
+	}
+
+	// pop the game object table
+	m_pContext->getLuaEnvironment()->pop();
+}
+
 
 void GameObjectManager::do_CREATE_ANIM_SET(Events::Event *pEvt)
 {

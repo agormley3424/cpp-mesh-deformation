@@ -127,6 +127,7 @@ struct DrawList : public Component
 	Handle &nextShaderValue();
 	Handle &nextShaderValue(int size); // allocation size for the value handle
 	Handle &nextGlobalShaderValue();
+	Handle& nextGlobalWindValue();
 
 	void optimize();
 	void optimizeByVertexBuffer(Array<PrimitiveTypes::UInt32> &callIndices);
@@ -210,6 +211,8 @@ struct DrawList : public Component
 	Array<Array<Handle> > m_shaderValues;
 
 	Array<Handle> m_globalShaderValues;
+
+	Array<Handle> m_globalWindValues;
 };
 }; // namespace Components
 }; // namespace PE

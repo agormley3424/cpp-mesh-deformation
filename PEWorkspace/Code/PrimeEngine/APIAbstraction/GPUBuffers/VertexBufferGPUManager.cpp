@@ -487,6 +487,8 @@ void VertexBufferGPUManager::setupVertexBufferInfos()
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(11 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "texcoord", 0);
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(13 * 4, PEScalarType_Float, 3, PESemanticType_Normal, "normal", 0);
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(16 * 4, PEScalarType_Float, 3, PESemanticType_Tangent, "tangent", 0);
+
+			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(11 * 4, PEScalarType_Float, 2, PESemanticType_Color, "windcoord", 0);
 		}
 		else if (DEFAULT_SKIN_WEIGHTS_PER_VERTEX == 8)
 		{

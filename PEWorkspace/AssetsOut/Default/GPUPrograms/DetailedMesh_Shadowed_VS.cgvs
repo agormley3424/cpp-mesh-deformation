@@ -26,9 +26,19 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedMesh_Shadowed_VS(DETAILED_MESH_VS_IN vIn)
     
     //vOut.iWind = mul(make_float4(0, 0, vIn.iWind.x, 1.0), W);
     
-    float4 intermed = mul(make_float4(0, vIn.iWind, 1), W);
+    //float4 intermed = mul(make_float4(0, vIn.iWind, 1), W);
     
-    vOut.iWind = make_float2(intermed.y, 0);
+    //vOut.iWind = make_float2(intermed.y, 0);
+    
+    //vOut.iWind = mul(make_float4(0, vIn.iWind, 1.0), W).xy;
+    
+    //vOut.iWind = (0, vOut.iPosW.y);
+    
+    //vOut.iWind = mul(make_float4(0, vIn.iWind.x, 0, 1.0), W).y, 0;
+    
+    vOut.iWind = make_float2((pos.y == vIn.iWind.x), 0);
+    
+    
     
     return vOut;
 }

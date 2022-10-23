@@ -58,6 +58,14 @@ void DrawList::reset()
 	}
 	m_globalShaderValues.reset(c_maxNumDrawCalls);
 
+	for (PrimitiveTypes::UInt32 isv = 0; isv < m_globalWindValues.m_size; isv++)
+	{
+		ShaderAction* sv = m_globalWindValues[isv].getObject<ShaderAction>();
+		sv->releaseData();
+		m_globalWindValues[isv].release();
+	}
+	m_globalWindValues.reset(c_maxNumDrawCalls);
+
 	for (PrimitiveTypes::UInt32 icall = 0; icall < m_numDrawCalls; icall++)
 	{
 		Array<Handle> &shaderValues = m_shaderValues[icall];
@@ -151,6 +159,13 @@ Handle &DrawList::nextGlobalShaderValue()
 	// this handle will be returned by reference and filled in by user
 	m_globalShaderValues.add(Handle());
 	return m_globalShaderValues[m_globalShaderValues.m_size-1];
+}
+
+Handle& DrawList::nextGlobalWindValue()
+{
+	// this handle will be returned by reference and filled in by user
+	m_globalWindValues.add(Handle());
+	return m_globalWindValues[m_globalWindValues.m_size - 1];
 }
 
 void DrawList::optimize()
@@ -336,6 +351,13 @@ void DrawList::do_RENDER(Events::Event *pEvt, int &threadOwnershipMask)
 		ShaderAction *sv = m_globalShaderValues[isv].getObject<ShaderAction>();
 		sv->bindToPipeline(m_pCurEffect);
 	}
+
+	for (PrimitiveTypes::UInt32 isv = 0; isv < m_globalWindValues.m_size; isv++)
+	{
+		ShaderAction* sv = m_globalWindValues[isv].getObject<ShaderAction>();
+		sv->bindToPipeline(m_pCurEffect);
+	}
+
 #endif
 
 	IRenderer::checkForErrors("starting to draw\n");
@@ -557,6 +579,12 @@ void DrawList::do_RENDER(Events::Event *pEvt, int &threadOwnershipMask)
 		for (PrimitiveTypes::UInt32 isv = 0; isv < m_globalShaderValues.m_size; isv++)
 		{
 			ShaderAction *sv = m_globalShaderValues[isv].getObject<ShaderAction>();
+			sv->unbindFromPipeline(m_pCurEffect);
+		}
+
+		for (PrimitiveTypes::UInt32 isv = 0; isv < m_globalWindValues.m_size; isv++)
+		{
+			ShaderAction* sv = m_globalWindValues[isv].getObject<ShaderAction>();
 			sv->unbindFromPipeline(m_pCurEffect);
 		}
 	}
