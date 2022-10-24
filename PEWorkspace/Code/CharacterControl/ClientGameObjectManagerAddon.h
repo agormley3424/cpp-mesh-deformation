@@ -46,6 +46,8 @@ struct ClientGameObjectManagerAddon : public GameObjectManagerAddon
 	void createSoldierNPC(Vector3 pos, int &threadOwnershipMask);
 	void createSoldierNPC(Events::Event_CreateSoldierNPC *pTrueEvent);
 
+	void sendWindToRootSceneNode();
+
 
 	//////////////////////////////////////////////////////////////////////////
 	// Game Specific functionality

@@ -35,13 +35,13 @@ void RootSceneNode::Construct(PE::GameContext &context, PE::MemoryArena arena)
 
 	Handle hWind("WIND", sizeof(Wind));
 
-	Wind* pWind = new(hWind) Wind(context, arena, hWind, Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0));
+	Wind* pWind = new(hWind) Wind(context, arena, hWind, Vector3(0, 0, 0), Vector3(0, 0, 0));
 	//Wind* pWind = new(hWind) Wind(context, arena);
 	//pRoot->m_wind = 
 
-	pRoot->m_wind.add(pWind);
-	pRoot->m_wind.add(pWind);
-	pRoot->m_wind.add(pWind);
+	pRoot->m_wind.add(hWind);
+	pRoot->m_wind.add(hWind);
+	pRoot->m_wind.add(hWind);
 }
 
 void RootSceneNode::addDefaultComponents()
@@ -51,6 +51,13 @@ void RootSceneNode::addDefaultComponents()
 	PE_REGISTER_EVENT_HANDLER(Events::Event_GATHER_DRAWCALLS, RootSceneNode::do_GATHER_DRAWCALLS);
 	PE_REGISTER_EVENT_HANDLER(Events::Event_GATHER_DRAWCALLS_Z_ONLY, RootSceneNode::do_GATHER_DRAWCALLS);
 }
+
+//void updateWind(int i, Vector3 pos, Vector3 dir) {
+//
+//	SceneNode* pRoot = RootSceneNode::Instance();
+//	Wind* camWind = pRoot->m_wind.getByIndexUnchecked(i).getObject<Wind>();
+//	camWind->update(pos, dir);
+//}
 
 void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 {
@@ -141,9 +148,21 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 			hsvWindObjectGroup = Handle("RAW_DATA", sizeof(WindPerObjectGroupConstantsShaderAction));
 			WindPerObjectGroupConstantsShaderAction* psvPerObjectGroup = new(hsvWindObjectGroup) WindPerObjectGroupConstantsShaderAction(*m_pContext, m_arena);
 
+			CameraSceneNode* csn = getFirstComponent<CameraSceneNode>();
+			Matrix4x4 camMat = csn->m_worldToViewTransform;
+			Wind* camWind = pRoot->m_wind.getByIndexUnchecked(0).getObject<Wind>();
+
+			camWind->update(camMat.getPos(), camMat.getN());
+			//Vector4 pos = (csn->m_worldToViewTransform.getPos().getX(), csn->m_worldToViewTransform.getPos().getY(), csn->m_worldToViewTransform.getPos().getZ(), 1);
+
+			//*rootMat = Matrix4x4(Vector4(, csn->m_worldToViewTransform.getPos(), Vector4(0, 0, 0, 0), Vector4(0, 0, 0, 0));
+
+			//csn.m_worldToViewTransform
 			
 			for (int i = 0; i < 3; ++i) {
-				psvPerObjectGroup->m_data.gWind[i].windSrc = *(pRoot->m_wind.getByIndexUnchecked(i).getObject<Matrix4x4>());
+				Wind* windData = pRoot->m_wind.getByIndexUnchecked(i).getObject<Wind>();
+
+				psvPerObjectGroup->m_data.gWind[i].pos = windData->m_cbuffer.pos;
 			}
 		}
 	}

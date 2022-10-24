@@ -46,7 +46,8 @@ namespace PE {
 		// struct to store light properties
 		struct hlsl_Wind
 		{
-			Matrix4x4 windSrc;
+			Vector4 pos;
+			Vector4 dir;
 		};
 
 		// the actual data that is transferred to video memory

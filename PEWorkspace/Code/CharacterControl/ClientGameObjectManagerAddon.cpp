@@ -6,6 +6,7 @@
 #include "WayPoint.h"
 #include "Tank/ClientTank.h"
 #include "CharacterControl/Client/ClientSpaceShip.h"
+#include "PrimeEngine/Scene/RootSceneNode.h"
 
 using namespace PE::Components;
 using namespace PE::Events;
@@ -37,6 +38,24 @@ void ClientGameObjectManagerAddon::do_CreateSoldierNPC(PE::Events::Event *pEvt)
 	Event_CreateSoldierNPC *pTrueEvent = (Event_CreateSoldierNPC*)(pEvt);
 
 	createSoldierNPC(pTrueEvent);
+}
+
+void ClientGameObjectManagerAddon::sendWindToRootSceneNode() {
+	SceneNode* sn =getComponentByIndex(14).getObject<CharacterControl::Components::SoldierNPC>()
+		->getComponentByIndex(0).getObject<SceneNode>();
+
+	Vector3 pos = sn->m_base.getPos();
+	Vector3 dir = sn->m_base.getN();
+
+	RootSceneNode::updateWind(1, pos, dir);
+
+	sn = getComponentByIndex(15).getObject<CharacterControl::Components::SoldierNPC>()
+		->getComponentByIndex(0).getObject<SceneNode>();
+
+	pos = sn->m_base.getPos();
+	dir = sn->m_base.getN();
+
+	RootSceneNode::updateWind(2, pos, dir);
 }
 
 void ClientGameObjectManagerAddon::createSoldierNPC(Vector3 pos, int &threadOwnershipMask)

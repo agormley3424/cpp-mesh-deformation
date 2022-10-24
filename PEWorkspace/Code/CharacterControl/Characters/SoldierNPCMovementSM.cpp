@@ -5,6 +5,7 @@
 #include "SoldierNPCMovementSM.h"
 #include "SoldierNPCAnimationSM.h"
 #include "SoldierNPC.h"
+#include "CharacterControl/ClientGameObjectManagerAddon.h"
 using namespace PE::Components;
 using namespace PE::Events;
 using namespace CharacterControl::Events;
@@ -153,6 +154,17 @@ void SoldierNPCMovementSM::do_UPDATE(PE::Events::Event *pEvt)
 			}
 		}
 	}
+
+	//GameObjectManager* gom = getFirstParentByTypePtr<SoldierNPC>()->
+	//	getFirstParentByTypePtr<ClientGameObjectManagerAddon>()->
+	//	getFirstParentByTypePtr<GameObjectManager>();
+
+	ClientGameObjectManagerAddon* goma = getFirstParentByTypePtr<SoldierNPC>()->
+		getFirstParentByTypePtr<ClientGameObjectManagerAddon>();
+
+	goma->sendWindToRootSceneNode();
+
+	//gom->sendWindToRootSceneNode();
 }
 
 }}

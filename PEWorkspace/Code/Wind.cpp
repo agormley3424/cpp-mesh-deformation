@@ -14,12 +14,10 @@ namespace PE {
 
 		}
 
-		void Wind::update(Vector3 pos, Vector3 xdir, Vector3 ydir, Vector3 zdir) {
+		void Wind::update(Vector3 pos, Vector3 dir) {
 			//memset(&m_cbuffer, 0, sizeof(m_cbuffer));
-			m_cbuffer.windSrc.setPos(pos);
-			m_cbuffer.windSrc.setU(xdir);
-			m_cbuffer.windSrc.setV(ydir);
-			m_cbuffer.windSrc.setN(zdir);
+			m_cbuffer.pos = Vector4(pos.getX(), pos.getY(), pos.getZ(), 1);
+			m_cbuffer.dir = Vector4(dir.getX(), dir.getY(), dir.getZ(), 1);
 		}
 
 	}; // namespace Components

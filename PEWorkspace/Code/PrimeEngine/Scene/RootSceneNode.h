@@ -13,6 +13,8 @@
 #include "../Events/Component.h"
 #include "../Utils/Array/Array.h"
 #include "PrimeEngine/APIAbstraction/Effect/Effect.h"
+#include "CameraSceneNode.h"
+#include "Wind.h"
 
 
 // Sibling/Children includes
@@ -55,6 +57,12 @@ struct RootSceneNode : public SceneNode
 	static void SetTitleAsCurrent(){ s_hCurInstance = s_hTitleInstance; }
 	static void SetGameAsCurrent() { s_hCurInstance = s_hInstance; }
 	static bool TitleIsCurrent() { return s_hCurInstance == s_hTitleInstance;}
+
+	static void updateWind(int i, Vector3 pos, Vector3 dir) {
+		SceneNode* pRoot = RootSceneNode::Instance();
+		Wind* camWind = pRoot->m_wind.getByIndexUnchecked(i).getObject<Wind>();
+		camWind->update(pos, dir);
+	}
 
 	//Array<Handle> m_wind;
 

@@ -13,6 +13,8 @@
 #include "PrimeEngine/Scene/Skeleton.h"
 #include "PrimeEngine/Scene/MeshInstance.h"
 #include "PrimeEngine/Scene/SkeletonInstance.h"
+#include "CharacterControl/ClientGameObjectManagerAddon.h"
+#include "CharacterControl/Characters/SoldierNPC.h"
 
 namespace PE {
 namespace Components {

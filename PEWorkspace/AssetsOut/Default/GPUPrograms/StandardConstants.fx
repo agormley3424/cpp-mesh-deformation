@@ -14,6 +14,14 @@ struct Light // 7 registers total
 	float4	xRange_yType_zw;//type: 0 = point, 1 = directional, 2 = spot
 };
 
+struct windSrc // Needs 1 register 
+{
+    float4 pos;
+    float4 dir;
+    float4 pad1;
+    float4 pad2;
+};
+
 ///////////////////////////////////////////////////////////////////////////////
 // Per-frame
 ///////////////////////////////////////////////////////////////////////////////
@@ -94,9 +102,9 @@ END_BUFFER
 #undef API_BUFFER_INDEX
 #define API_BUFFER_INDEX 4
 BEGIN_BUFFER
-	API_UNIFORM_CONSTANT matrix windSource1 API_UNIFORM_CONSTANT_REGISTER_REG(162, 163);
-	API_UNIFORM_CONSTANT matrix windSource2 API_UNIFORM_CONSTANT_REGISTER_REG(166, 167);
-	API_UNIFORM_CONSTANT matrix windSource3 API_UNIFORM_CONSTANT_REGISTER_REG(170, 171);
+	API_UNIFORM_CONSTANT windSrc windSource1 API_UNIFORM_CONSTANT_REGISTER_REG(162, 163);
+	API_UNIFORM_CONSTANT windSrc windSource2 API_UNIFORM_CONSTANT_REGISTER_REG(163, 164);
+	API_UNIFORM_CONSTANT windSrc windSource3 API_UNIFORM_CONSTANT_REGISTER_REG(164, 165);
 END_BUFFER
 
 
