@@ -14,12 +14,10 @@ struct Light // 7 registers total
 	float4	xRange_yType_zw;//type: 0 = point, 1 = directional, 2 = spot
 };
 
-struct windSrc // Needs 1 register 
+struct windSrc // Needs 2 registers 
 {
     float4 pos;
     float4 dir;
-    float4 pad1;
-    float4 pad2;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -97,14 +95,14 @@ BEGIN_BUFFER  // total registers: 4 absoulte: [159-162]
 END_BUFFER
 
 ////////////////////////////////////////////////////////////////////////////////
-// Wind (Needs 4 registers for each source, 12 total)
+// Wind (Needs 2 register for each source, 6 total)
 ////////////////////////////////////////////////////////////////////////////////
 #undef API_BUFFER_INDEX
 #define API_BUFFER_INDEX 4
 BEGIN_BUFFER
-	API_UNIFORM_CONSTANT windSrc windSource1 API_UNIFORM_CONSTANT_REGISTER_REG(162, 163);
-	API_UNIFORM_CONSTANT windSrc windSource2 API_UNIFORM_CONSTANT_REGISTER_REG(163, 164);
-	API_UNIFORM_CONSTANT windSrc windSource3 API_UNIFORM_CONSTANT_REGISTER_REG(164, 165);
+	API_UNIFORM_CONSTANT windSrc windSource1 API_UNIFORM_CONSTANT_REGISTER_REG(0, 163);
+	API_UNIFORM_CONSTANT windSrc windSource2 API_UNIFORM_CONSTANT_REGISTER_REG(1, 165);
+	API_UNIFORM_CONSTANT windSrc windSource3 API_UNIFORM_CONSTANT_REGISTER_REG(2, 167);
 END_BUFFER
 
 

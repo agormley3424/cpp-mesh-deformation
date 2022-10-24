@@ -34,14 +34,17 @@ void RootSceneNode::Construct(PE::GameContext &context, PE::MemoryArena arena)
 	SceneNode* pRoot = RootSceneNode::Instance();
 
 	Handle hWind("WIND", sizeof(Wind));
-
 	Wind* pWind = new(hWind) Wind(context, arena, hWind, Vector3(0, 0, 0), Vector3(0, 0, 0));
-	//Wind* pWind = new(hWind) Wind(context, arena);
-	//pRoot->m_wind = 
+	pRoot->m_wind.add(pWind);
 
-	pRoot->m_wind.add(hWind);
-	pRoot->m_wind.add(hWind);
-	pRoot->m_wind.add(hWind);
+
+	Handle hWind2("WIND", sizeof(Wind));
+	Wind* pWind2 = new(hWind2) Wind(context, arena, hWind2, Vector3(0, 0, 0), Vector3(0, 0, 0));
+	pRoot->m_wind.add(pWind2);
+
+	Handle hWind3("WIND", sizeof(Wind));
+	Wind* pWind3 = new(hWind3) Wind(context, arena, hWind3, Vector3(0, 0, 0), Vector3(0, 0, 0));
+	pRoot->m_wind.add(pWind3);
 }
 
 void RootSceneNode::addDefaultComponents()
@@ -84,13 +87,6 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 		SetPerFrameConstantsShaderAction *p = new(h) SetPerFrameConstantsShaderAction(*m_pContext, m_arena);
 		p->m_data.gGameTimes[0] = pDrawEvent ? pDrawEvent->m_gameTime : 0;
 		p->m_data.gGameTimes[1] = pDrawEvent ? pDrawEvent->m_frameTime : 0;
-
-		// fill in the data object that will be submitted to pipeline
-		Handle& h2 = pDrawList->nextGlobalWindValue();
-		h2 = Handle("RAW_DATA", sizeof(WindPerObjectGroupConstantsShaderAction));
-		WindPerObjectGroupConstantsShaderAction* p2 = new(h2) WindPerObjectGroupConstantsShaderAction(*m_pContext, m_arena);
-		p2->m_data.gGameTimes[0] = pDrawEvent ? pDrawEvent->m_gameTime : 0;
-		p2->m_data.gGameTimes[1] = pDrawEvent ? pDrawEvent->m_frameTime : 0;
 	}
 
 	// set some effect constants here that will be constant per object group
@@ -149,10 +145,12 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 			WindPerObjectGroupConstantsShaderAction* psvPerObjectGroup = new(hsvWindObjectGroup) WindPerObjectGroupConstantsShaderAction(*m_pContext, m_arena);
 
 			CameraSceneNode* csn = getFirstComponent<CameraSceneNode>();
-			Matrix4x4 camMat = csn->m_worldToViewTransform;
+			Matrix4x4 camMat = csn->m_worldTransform2;
 			Wind* camWind = pRoot->m_wind.getByIndexUnchecked(0).getObject<Wind>();
 
 			camWind->update(camMat.getPos(), camMat.getN());
+
+
 			//Vector4 pos = (csn->m_worldToViewTransform.getPos().getX(), csn->m_worldToViewTransform.getPos().getY(), csn->m_worldToViewTransform.getPos().getZ(), 1);
 
 			//*rootMat = Matrix4x4(Vector4(, csn->m_worldToViewTransform.getPos(), Vector4(0, 0, 0, 0), Vector4(0, 0, 0, 0));
@@ -163,7 +161,10 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 				Wind* windData = pRoot->m_wind.getByIndexUnchecked(i).getObject<Wind>();
 
 				psvPerObjectGroup->m_data.gWind[i].pos = windData->m_cbuffer.pos;
+				psvPerObjectGroup->m_data.gWind[i].dir = windData->m_cbuffer.dir;
 			}
+
+			//psvPerObjectGroup->bindToPipeline(NULL);
 		}
 	}
 }

@@ -130,7 +130,7 @@ void PEAlphaBlendState::setAPIValues()
 #endif
 }
 
-void PEAlphaBlendState::bindToPipeline(Components::Effect *pCurEffect)
+void PEAlphaBlendState::bindToPipeline(Components::Effect *pCurEffect = NULL)
 {
 	#if APIABSTRACTION_D3D9
 	{	

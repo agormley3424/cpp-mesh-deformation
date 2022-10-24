@@ -32,13 +32,19 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedMesh_Shadowed_VS(DETAILED_MESH_VS_IN vIn)
     
     //vOut.iWind = mul(make_float4(0, vIn.iWind, 1.0), W).xy;
     
-    //vOut.iWind = (0, vOut.iPosW.y);
+    vOut.iWind = make_float2(vOut.iPosW.y, 0.0);
     
     //vOut.iWind = mul(make_float4(0, vIn.iWind.x, 0, 1.0), W).y, 0;
     
-    vOut.iWind = make_float2((pos.y == vIn.iWind.x), 0);
+    //vOut.iWind = make_float2((pos.y == vIn.iWind.x), 0);
     
+    float w1 = length(windSource1.pos.xyz - vOut.iPosW);
+    //float w2 = length(windSource2.pos.xyz - vOut.iPosW);
+    //float w3 = length(windSource3.pos.xyz - vOut.iPosW);
     
+    vOut.iPosW.xz += (windSource1.dir.xz) * (10 / w1);
+    //vOut.iPosW.xz += windSource2.dir.xz * (1 / w2);
+    //vOut.iPosW.xz += windSource3.dir.xz * (1 / w3);
     
     return vOut;
 }

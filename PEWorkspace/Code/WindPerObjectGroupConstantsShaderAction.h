@@ -32,7 +32,7 @@ namespace PE {
 
 		virtual ~WindPerObjectGroupConstantsShaderAction() {}
 
-		virtual void bindToPipeline(Components::Effect* pCurEffect = NULL);
+		virtual void bindToPipeline(Components::Effect* pCurEffect);
 		virtual void unbindFromPipeline(Components::Effect* pCurEffect = NULL);
 		virtual void releaseData();
 #if PE_PLAT_IS_PSVITA
