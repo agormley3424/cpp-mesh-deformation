@@ -75,7 +75,7 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedSkin_Shadowed_VS(DETAILED_SKIN_VS_IN vIn)
     vOut.iTexCoord = vIn.iTexCoord;
     vOut.iProjTexCoord = mul(make_float4(vOut.iPosW, 1.0), gLightWVP);
 	
-    vOut.iWind = make_float2(vOut.iPosW.y, 0.0);
+    vOut.iWind = make_float2(vOut.iPosW.y / 5, 0.0);
     
     return vOut;
 }

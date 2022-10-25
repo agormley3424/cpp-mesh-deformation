@@ -12,10 +12,35 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedMesh_Shadowed_VS(DETAILED_MESH_VS_IN vIn)
 	
 	Matrix WVP = gWVP;
 	Matrix W = gW;
+    
+    float w1Dist = abs(length(windSource1.pos.xz - pos.xz));
+    float w1Str = pos.y * 3 / w1Dist;
+    float w1Dir = normalize(windSource1.dir);
+    
+    float w2Dist = abs(length(windSource2.pos.xz - pos.xz));
+    float w2Str = pos.y * 3 / w2Dist;
+    float w2Dir = normalize(windSource2.dir);
+    
+    float w3Dist = abs(length(windSource3.pos.xz - pos.xz)) + 5;
+    float w3Str = pos.y * 3 / w3Dist;
+    float w3Dir = normalize(windSource3.dir);
+    
+    //pos.xz += (w1Str * w1Dir) + (w2Str * w2Dir) + (w3Str * w3Dir);
+    
+    pos.xz += (w1Str * w1Dir) + (w2Str * w2Dir) + (w3Str * w3Dir);
+    
+    //pos.xz += (w3Str * w3Dir);
+    
+    vOut.iWind = make_float2((abs(pos.y - vIn.iWind.x) < 0.01), 0);
 
     vOut.iPosH = mul(make_float4(pos, 1.0), WVP);
     vOut.iNormalW = mul(make_float4(vIn.iNormal, 0), W).xyz;
     vOut.iPosW =  mul(make_float4(pos, 1.0), W).xyz;
+    
+
+    
+    
+    
     vOut.iTangentW = mul(make_float4(vIn.iTangent, 1.0), W).xyz;
     vOut.iTexCoord = vIn.iTexCoord;
     vOut.iProjTexCoord = mul(make_float4(vOut.iPosW, 1.0), gLightWVP);
@@ -50,17 +75,32 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedMesh_Shadowed_VS(DETAILED_MESH_VS_IN vIn)
     
     //vOut.iWind = make_float2((abs(pos.y - vIn.iWind.x)) < 0.1, 0);
     
-    float w1 = length(windSource1.pos.xz - vOut.iPosW.xz);
-    float w2 = length(windSource2.pos.xz - vOut.iPosW.xz);
-    float w3 = length(windSource3.pos.xz - vOut.iPosW.xz);
+    //vOut.iWind = make_float2(vOut.iPosW.y, 0.0);
     
-    float2 interDir = windSource1.dir.xz;
-    float2 interMed = vOut.iPosW.xz;
-    interMed += interDir * (100 / w1);
+
+    //float w2 = length(windSource2.pos.xz - vOut.iPosW.xz);
+    //float w3 = length(windSource3.pos.xz - vOut.iPosW.xz);
     
-    vOut.iPosW = make_float4(interMed.x, vOut.iPosW.y, interMed.y, 1.0);
+    ////if dot(windSource1.dir, )
     
-    vOut.iWind = make_float2(w2 - 2, 0);
+    ////float w1 = length(windSource1.pos.xz - vOut.iPosW.xz);
+    ////float2 interDir = normalize(windSource1.dir.xz) * (vOut.iPosW.y / w1);
+    //////float2 interMed = vOut.iPosW.xz;
+    ////vOut.iPosW = make_float4(interDir.x, vOut.iPosW.y, interDir.y, 1);
+    ////float2 interMed = interDir * (100 / w1);
+    
+    ////vOut.iPosW = make_float4(vOut.iPosW.x + interMed.x, vOut.iPosW.y, vOut.iPosW.z + interMed.y, 1.0);
+    
+    ////vOut.iWind = make_float2(w2 - 2, 0);
+    
+    //float w1 = length(windSource1.pos.xz - vOut.iPosW.xz);
+    
+    ////vOut.iPosW.x += 10/w1;
+    ////vOut.iPosW.z += 10/w1;
+    
+    //vOut.iPosH = make_float4(0, 0, 0, 1);
+    
+    vOut.iWind = make_float2(vOut.iPosW.y / 5, 0);
     
     return vOut;
 }

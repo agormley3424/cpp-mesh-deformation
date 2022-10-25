@@ -162,6 +162,8 @@ void RootSceneNode::do_GATHER_DRAWCALLS(Events::Event *pEvt)
 
 				psvPerObjectGroup->m_data.gWind[i].pos = windData->m_cbuffer.pos;
 				psvPerObjectGroup->m_data.gWind[i].dir = windData->m_cbuffer.dir;
+
+				int j = 5;
 			}
 
 			//psvPerObjectGroup->bindToPipeline(NULL);

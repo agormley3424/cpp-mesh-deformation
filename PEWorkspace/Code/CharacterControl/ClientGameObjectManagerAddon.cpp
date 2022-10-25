@@ -41,7 +41,7 @@ void ClientGameObjectManagerAddon::do_CreateSoldierNPC(PE::Events::Event *pEvt)
 }
 
 void ClientGameObjectManagerAddon::sendWindToRootSceneNode() {
-	SceneNode* sn =getComponentByIndex(14).getObject<CharacterControl::Components::SoldierNPC>()
+	SceneNode* sn =getComponentByIndex(15).getObject<CharacterControl::Components::SoldierNPC>()
 		->getComponentByIndex(0).getObject<SceneNode>();
 
 	Vector3 pos = sn->m_base.getPos();
@@ -49,7 +49,7 @@ void ClientGameObjectManagerAddon::sendWindToRootSceneNode() {
 
 	RootSceneNode::updateWind(1, pos, dir);
 
-	sn = getComponentByIndex(15).getObject<CharacterControl::Components::SoldierNPC>()
+	sn = getComponentByIndex(16).getObject<CharacterControl::Components::SoldierNPC>()
 		->getComponentByIndex(0).getObject<SceneNode>();
 
 	pos = sn->m_base.getPos();
