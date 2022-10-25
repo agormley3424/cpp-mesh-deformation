@@ -13,17 +13,27 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedMesh_Shadowed_VS(DETAILED_MESH_VS_IN vIn)
 	Matrix WVP = gWVP;
 	Matrix W = gW;
     
-    float w1Dist = abs(length(windSource1.pos.xz - pos.xz));
-    float w1Str = pos.y * 3 / w1Dist;
+    //float w1Dist = abs(length(windSource1.pos.xz - pos.xz));
+    //float w1Str = pos.y * 3 / w1Dist;
+
+    
+    //vOut.iWind = make_float2((abs(pos.y - vIn.iWind.x) < 0.01), 0);
+
+    //vOut.iPosH = mul(make_float4(pos, 1.0), WVP);
+    //vOut.iNormalW = mul(make_float4(vIn.iNormal, 0), W).xyz;
+    vOut.iPosW =  mul(make_float4(pos, 1.0), W).xyz;
+    
+
+    float w1Str = min(vIn.iWind.x / 2, 3.0);
     float w1Dir = normalize(windSource1.dir);
     
-    float w2Dist = abs(length(windSource2.pos.xz - pos.xz));
-    float w2Str = pos.y * 3 / w2Dist;
-    float w2Dir = normalize(windSource2.dir);
+    float w2Dist = abs(length(windSource2.pos.xz - vOut.iPosW.xz));
+    float w2Str = min(vIn.iWind.x / pow(w2Dist, 2), 1.0);
+    float w2Dir = normalize(vOut.iPosW.xz - windSource2.pos.xz);
     
-    float w3Dist = abs(length(windSource3.pos.xz - pos.xz)) + 5;
-    float w3Str = pos.y * 3 / w3Dist;
-    float w3Dir = normalize(windSource3.dir);
+    float w3Dist = abs(length(windSource3.pos.xz - vOut.iPosW.xz));
+    float w3Str = min(vIn.iWind.x / pow(w3Dist, 2), 1.0);
+    float w3Dir = normalize(vOut.iPosW.xz - windSource3.pos.xz);
     
     //pos.xz += (w1Str * w1Dir) + (w2Str * w2Dir) + (w3Str * w3Dir);
     
@@ -31,14 +41,11 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedMesh_Shadowed_VS(DETAILED_MESH_VS_IN vIn)
     
     //pos.xz += (w3Str * w3Dir);
     
-    vOut.iWind = make_float2((abs(pos.y - vIn.iWind.x) < 0.01), 0);
-
+    //pos.xz += (w1Str * w1Dir);
+    
+    vOut.iPosW = mul(make_float4(pos, 1.0), W).xyz;
     vOut.iPosH = mul(make_float4(pos, 1.0), WVP);
     vOut.iNormalW = mul(make_float4(vIn.iNormal, 0), W).xyz;
-    vOut.iPosW =  mul(make_float4(pos, 1.0), W).xyz;
-    
-
-    
     
     
     vOut.iTangentW = mul(make_float4(vIn.iTangent, 1.0), W).xyz;
@@ -100,7 +107,11 @@ DETAILED_MESH_SHADOWED_PS_IN DetailedMesh_Shadowed_VS(DETAILED_MESH_VS_IN vIn)
     
     //vOut.iPosH = make_float4(0, 0, 0, 1);
     
-    vOut.iWind = make_float2(vOut.iPosW.y / 5, 0);
+    //vOut.iWind = make_float2(vOut.iPosW.y / 5, 0);
+    
+    //vOut.iWind = make_float2((abs(vIn.iWind.x - pos.y) < 0.1), 0);
+    
+    vOut.iWind = vIn.iWind / 5;
     
     return vOut;
 }

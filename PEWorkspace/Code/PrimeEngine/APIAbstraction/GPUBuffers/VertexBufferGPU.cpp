@@ -674,6 +674,7 @@ void VertexBufferGPU::createGPUBufferFromSource_DetailedMesh(PositionBufferCPU &
 		tx = tb.m_values[curInex]; ty = tb.m_values[curInex + 1]; tz = tb.m_values[curInex + 2];
 
 		w1 = wb.m_values[itcvalWind++]; w2 = wb.m_values[itcvalWind++];
+		//w1 = 0.0; w2 = 0.0;
 
 		res.m_values.add(x); res.m_values.add(y); res.m_values.add(z);
 		res.m_values.add(u); res.m_values.add(v);

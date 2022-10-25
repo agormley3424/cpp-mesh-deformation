@@ -295,7 +295,7 @@ void VertexBufferGPUManager::setupVertexBufferInfos()
 		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(5 * 4, PEScalarType_Float, 3, PESemanticType_Normal, "normal", 0);
 		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(8 * 4, PEScalarType_Float, 3, PESemanticType_Tangent, "tangent", 0);
 
-		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(3 * 4, PEScalarType_Float, 2, PESemanticType_Color, "windcoord", 0);
+		buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(11 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "texcoord", 1);
 		
 		info.m_bufferInfos.add(buf0);
 		info.setAPIValues();
@@ -488,7 +488,7 @@ void VertexBufferGPUManager::setupVertexBufferInfos()
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(13 * 4, PEScalarType_Float, 3, PESemanticType_Normal, "normal", 0);
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(16 * 4, PEScalarType_Float, 3, PESemanticType_Tangent, "tangent", 0);
 
-			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(11 * 4, PEScalarType_Float, 2, PESemanticType_Color, "windcoord", 0);
+			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(19 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "windcoord", 1);
 		}
 		else if (DEFAULT_SKIN_WEIGHTS_PER_VERTEX == 8)
 		{
@@ -501,7 +501,7 @@ void VertexBufferGPUManager::setupVertexBufferInfos()
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(21 * 4, PEScalarType_Float, 3, PESemanticType_Normal, "normal", 0);
 			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(24 * 4, PEScalarType_Float, 3, PESemanticType_Tangent, "tangent", 0);
 
-			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(19 * 4, PEScalarType_Float, 2, PESemanticType_Color, "windcoord", 0);
+			buf0.m_attributeInfos[buf0.m_numAttributes++] = PEVertexAttributeInfo(27 * 4, PEScalarType_Float, 2, PESemanticType_TexCoord, "windcoord", 1);
 		}
 
 		info.m_bufferInfos.add(buf0);
