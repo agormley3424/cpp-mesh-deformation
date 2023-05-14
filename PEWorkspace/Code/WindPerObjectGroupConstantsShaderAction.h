@@ -43,7 +43,7 @@ namespace PE {
 #	endif
 		PE::MemoryArena m_arena; PE::GameContext* m_pContext;
 
-		// struct to store light properties
+		// struct to store wind properties
 		struct hlsl_Wind
 		{
 			Vector4 pos;

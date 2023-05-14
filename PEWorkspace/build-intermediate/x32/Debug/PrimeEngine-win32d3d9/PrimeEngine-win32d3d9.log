@@ -1,4 +1,42 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(400,5): warning MSB8029: The Intermediate directory or Output directory cannot reside under the Temporary directory as it could lead to issues with incremental build.
+﻿  DefaultGameControls.cpp
+  GameObjectManager.cpp
+  GameThreadJob.cpp
+  ClientGame.cpp
+  GlobalRegistry.cpp
+  ServerGame.cpp
+  LuaEnvironment.cpp
+  ServerNetworkManager.cpp
+  Profiling.cpp
+  RenderJob.cpp
+  CameraManager.cpp
+  DebugRenderer.cpp
+  LineMesh.cpp
+  MeshInstance.cpp
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\networking\server\servernetworkmanager.cpp(192): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\networking\server\servernetworkmanager.cpp(186): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\networking\server\servernetworkmanager.cpp(198): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+  MeshManager.cpp
+  RootSceneNode.cpp
+  SH_DRAW.cpp
+  SkeletonInstance.cpp
+  TextMesh.cpp
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\gamethreadjob.cpp(314): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\gamethreadjob.cpp(325): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\gamethreadjob.cpp(350): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\scene\linemesh.cpp(95): warning C4018: '<': signed/unsigned mismatch
+  Wind.cpp
+  WindPerObjectGroupConstantsShaderAction.cpp
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\scene\meshmanager.cpp(44): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\scene\meshmanager.cpp(96): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.10240.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\scene\sh_draw.cpp(204): warning C4018: '<': signed/unsigned mismatch
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\primeengine\scene\sh_draw.cpp(451): warning C4018: '<': signed/unsigned mismatch
 ShaderAction.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 SetInstanceControlConstantsShaderAction.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 SA_SetAndBind_ConstResource_SingleObjectAnimationPalette.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library

@@ -1,5 +1,16 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(400,5): warning MSB8029: The Intermediate directory or Output directory cannot reside under the Temporary directory as it could lead to issues with incremental build.
-SoldierNPC.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
+﻿  SoldierNPC.cpp
+  ClientCharacterControlGame.cpp
+  ClientGameObjectManagerAddon.cpp
+  ClientSpaceShip.cpp
+  ClientSpaceShipControls.cpp
+  Events.cpp
+  GameObjectManagerAddon.cpp
+  GlobalRegistry.cpp
+  ServerCharacterControlGame.cpp
+  ServerGameObjectManagerAddon.cpp
+  ClientTank.cpp
+  main.cpp
+c:\users\aaron\desktop\schoolwork\csci_522\hw5\peworkspace\code\charactercontrol\characters\soldiernpc.cpp(91): warning C4305: 'argument': truncation from 'double' to 'float'
   CharacterControl-win32d3d9.vcxproj -> C:\Users\aaron\Desktop\Schoolwork\CSCI_522\HW5\PEWorkspace\Code\..\build\CharacterControl-win32d3d9.exe
   CharacterControl-win32d3d9.vcxproj -> ..\build\CharacterControl-win32d3d9.pdb (Full PDB)
   ..\External\DownloadedLibraries\glew-1.9.0\bin\glew32.dll
